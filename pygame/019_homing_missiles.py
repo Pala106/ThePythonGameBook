@@ -180,45 +180,6 @@ def game(folder = "data"):
                 self.color = (0,0,128)
             self.percent = self.boss.rockets / self.boss.rocketsmax * 1.0
         
-    class GameObject(pygame.sprite.Sprite):
-        """generic Game Object Sprite class, to be called from every Sprite
-           with a physic collision (Player, Rocket, Monster, Bullet)
-           need self.image and self.image0 and self.groups to be set
-           need self.rect and self.pos to be set
-           self.hitpoints must be set to a float, also self.hitpointsfull"""
-        image=[]  # list of all images
-        gameobjects = {} # a dictionary of all GameObjects, each GameObject has its own number
-        number = 0  
-        #def __init__(self, pos, layer= 4, area=screenrect, areastop = False, areabounce = False, angle=0, speedmax = 500, friction = 0.95, lifetime = -1):
-        def __init__(self, layer= 4, area=screenrect, areastop = False, areabounce = False, angle=0, speedmax = 500, friction = 0.95, lifetime = -1):
-            #self.pos = pos
-            self._layer = layer                   # assign level
-            self.area = area
-            self.areastop = areastop
-            self.areabounce = areabounce
-            self.angle = angle 
-            self.oldangle = angle
-            self.speedmax = speedmax
-            self.friction = friction # between 0 and 1, 1 means no friction, 0 means no more movement is possible
-            self.lifetime = lifetime # -1 means infinite lifetime
-            pygame.sprite.Sprite.__init__(self,  self.groups  ) #---------------call parent class. NEVER FORGET !
-            self.alivetime = 0.0 # how long does this GameObject exist ?
-            self.bouncefriction = -0.5 # how much speed is lost by bouncing off a wall. 1 means no loss, 0 means full stop
-            self.dx = 0   # wait at the beginning
-            self.dy = 0            
-            self.number = GameObject.number # get my personal GameObject number
-            GameObject.number+= 1           # increase the number for next GameObject
-            GameObject.gameobjects[self.number] = self # store myself into the GameObject dictionary
-          
-        def speedcheck(self):
-            speed = (self.dx**2 + self.dy**2)**0.5 ## calculate total speed
-            if speed > self.speedmax:
-                factor = self.speedmax / speed * 1.0
-                self.dx *= factor
-                self.dy *= factor
-            else:
-                self.color = (0,0,128)
-            self.percent = self.boss.rockets / self.boss.rocketsmax * 1.0
         
     class GameObject(pygame.sprite.Sprite):
         """generic Game Object Sprite class, to be called from every Sprite
